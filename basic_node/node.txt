@@ -1,0 +1,373 @@
+-- Tutorial 1
+node is not a language
+this is a server environment
+node js is connect to database
+code is not exactly same as javascript
+
+node js is mainly used for api
+so we can connect the same database with web app and mobile app
+node js is superfast for apis
+with node and javascript you are become a full stack developer
+you cannot connect javascript to db
+node can connect with db
+node js run on server side
+javascript is run on the browser
+
+-- Tutorial 2
+
+chrome V8 engine is written in C++
+developers make api with node js
+isme hum client side aur server side ko api ka through connect karte hai
+node can make api for web , Andriod and ios.
+
+console in browser is different from terminal because node js have own documentation and console is a class and log is a method
+it is similar to javascript so in node js so we use console.log() for debugging and it internally use javascript also
+
+-- Tutorial 3
+== is used for check the value. === is used for check the value and also check data type of particular value
+node js me javascript purana version hota hai and browser me thoda higher version pe hota tabhi usme easily import nahi kar pate
+
+filter function callback lega aur loop chala dega and filter ke liya bu use karte hai
+
+
+--Tutorial 4
+
+global module wo hote hai jise import karne ki jarurat nahi hoti example is console
+non global module ko import karne ki jaroorat hoti hai example const fs = require('fs') 
+
+fs.writeFileSync("cr.txt","hello ajay") or const fs = require("fs").writeFileSync; fs("cr.txt","hello ajay")
+
+-- Tutorial 5
+
+what is the use of http module?
+ans. node js ke andhar server ki request or response ko handle karta hai
+
+req ka use jo parameters hum bhejta hai url me example ko access ka liya use karta hai and request pai response bhejna hai uske liya res hota hai
+
+basic http server
+
+const http = require('http')
+
+http.createServer((req,res)=>{
+res.write("hello ajay")
+res.end()
+}).listen(3000)
+
+
+-- Tutorial 6
+
+package.json file project ki detail rakhti hai ex version and detail rakhta hai
+package-lock.json package ki detail rakhaga
+
+
+node js ek single threaded hai matlab ek bar me ek hi command ko run karna
+
+if node module is deleted then we take this by npm install
+
+kabhi bi ham node_modules folder ko push nahi karte to isme ham .gitignore banate hai aur usme hum /node_modules likh denge
+
+--Tutorial 7
+
+package or module same hi hota hai
+
+we use nodemon for automatic run 
+
+node js is async 
+
+res.writeHead(200,{'Content-Type' : 'application/json'}) -- basic syntax
+res.write(JSON.stringify({"name":"ajay singh", "class":12}))
+
+201 created
+200 Ok
+500 internal server error
+404 not found 
+400 Bad Request
+
+try log(process.argv)  and run index.js 100  and process.agrv give input from command line aur ese aata hai node ki file kaha save hai aur jisme code kar rahe hai
+
+const fs = require('fs')
+const value = process.argv
+fs.writeFileSync(value[2],value[3])
+
+node index.js hello.txt "hello ajay"
+
+to remove file fs.unlinkSync(file name)
+
+question. kya me d drive ya koi bi drive or file location se get(access) karsakta hu apne program me?
+
+ans.  nahi karsakta kyuki jab ek folder ka andhar node js run karte ho wo ek web server ban jaata hai tab wo folder ek parkar me environment ban jaata hai
+
+ isse usko nahi pata bahar kya ho raha
+
+-- Tutorial 8
+
+log(__dirname) => current directory
+
+
+what is buffer?
+
+this is a temporary memory location and it is used by node js to perform some operations 
+
+sync ka matlab wait karna hota hai
+
+asyncronous ki disadvantage to dur karna ke liya hum promise banaate hai jo promise return karta hai
+
+basic syntax of promise is
+
+let waitingData = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        resolve(30); // 30 is the data in below code in then 
+    },2000)
+
+
+})
+
+waitingData.then((data)=>{
+    console.log(a+data);
+}).catch((err)=>{
+    console.log(err);
+})
+
+setTimeout is come from C++ and working in NodeApis and callbackQueue because all the things that come from c and c++ are go into NodeApi 
+
+two programming ke biche jo interface hota hai => NodeApi => c and c++ and javascript
+ 
+--Tutorial 9
+
+express is a framework of node js like angular is a framework of javascript
+
+basic syntax express code 
+const express = require('express')
+
+const app = express();
+
+app.get('',(req,res)=>{
+    // console.log('this is a home page');;
+    // console.log("your query is ");
+    res.send('this is a home page ' + req.query.name)
+})
+
+
+use of public like this 
+
+const dirpath = path.join(__dirname,'public');
+
+app.use(express.static(dirpath))
+
+path module aapke folder ko access karne ke kam aata hai
+
+static=> static content ko load karta hai and content vaisa rahata hai change nahi hota
+
+dynamic => example is data database se aa raha hai and change hota rahta hai
+
+app.set('view engine', 'ejs)
+
+isme view engine ka matlab template engine hai and template engine ka name hai ejs
+
+
+app.get('',(req,res)=>{
+    const user = {
+        name : "ajay",
+        subject: "chemistery"
+    }
+    res.render('home', {user})
+
+})
+
+isme agar mere ko home.ejs me name access karna hai to me <%= user.name %>
+
+from above summary to deal with static data like normal html page we do in public folder 
+but for deal with dynamic data we use template engine like ejs , hbs etc..
+
+
+-- Tutorial 10
+
+for loop syntax in node
+<% user.skills.forEach((element)=>{%>
+
+        <li><%= element%></li>
+
+
+        <% })%>
+
+<%- include('common/header')%> including header.ejs from common folder we also used - in this to load html files
+
+
+-- Tutorial 11
+application level middleware
+
+ye middleware sabhi routes pe lag jaata hai
+
+Middleware => ye ek function hota hai jo routes ka sath use hota hai iske maddad se ham request aur response ko access kar sakta hai aur usko modify kar sakta hai
+aur eska use login logout me aata hai or user authentication me bhi aata hai
+
+basic middleware 
+
+const reqFilter = (req,res,next)=>{
+    console.log('reqFilter');
+    next();
+}
+
+app.use(reqFilter)  esme mere ko next lagana jaroori hai agar nahi lagata  to site load hoti rahegi aur nahi chalegi
+
+// const reqFilter = (req,res,next)=>{
+//     if (!req.query.age){
+//         res.send("Provide your age")
+//     }
+    // console.log('reqFilter');  //Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    // at new NodeError (node:internal/errors:405:5)
+//     next();
+// }
+
+//  to resolve error of cannot set headers we move next() into else part
+const reqFilter = (req,res,next)=>{
+    if (!req.query.age){
+        res.send("Provide your age")
+    }else{
+        next();
+    }
+    
+    // next();
+}
+
+
+Route level middleware => aise middleware jo single route pe bhi kam karenge and routing ke group ke upar bi kam karenge aur sam pe bhi kam kar sakte hai
+
+
+const reqFilter = (req,res,next)=>{
+    console.log('reqFilter');
+    next();
+}
+
+app.get('/',reqFilter, (req,res)=>{
+    res.send("this is a home page")
+})
+
+in above we use reqFilter middleware on home page that is route level and we comment app.use(req.Filter)
+
+
+const route = express.Router()  kaise sare route use karne ke liye
+route.use(reqFilter) to use reqFilter
+
+
+--Tutorial 12
+
+mongoDB compass tool  => this gui(graphic user interface) tool
+
+kya two database ko connect kar sakta hai kya 
+
+ha bilkul kar sakta hai
+
+
+achi practice ke liye aap connection with mongodb ko alag rakhe aur dusre me require kar le
+
+
+ques.  kya aap get method ke andhar body pass kar sakta ho ?
+
+ans.  nahi kar sakta but ham post me pass kar sakta hai kyuki usme hum data ko save karta hai
+
+get - read karna
+
+post - save karna and baad me send karna and isme generaaly raw me jakar json data hi send karta hai
+
+put - update karna
+
+delete - delete karna
+
+node 4.6 version se pahle hum body parser use karta tha and use ka baad hum app.use(express.json()) isko use karta hai parsing ke liye
+
+aur isko hum req.body se jo json object aata hai usko  parse karta hai
+
+post ka duara bhi bi hum update kar sakta hai parantu put method standard tarika hota hai update ka
+
+
+access mongodb id by mongodb.object(_id)
+
+--Tutorial 13
+
+que. What is Mongoose
+ans. node js ko mongodb se connect karna ke liya ek npm package hai
+
+
+mongoose advance cheja deta hai as compare to mongodb
+
+isme ham models and schemas banate hai
+
+database ke andhar jo fields hoti hai unko schema bola jata hai
+
+model => ye un schema ko use karke nodejs aur mongodb ko connect karta hai
+
+
+read ke liye mongodb me hum .find() lagate hai
+
+delete method me hum id ko req.param me bhejenge
+
+put me dono jagah bhej sakta hai in body and in req.params and its depends on you how you update
+
+
+kya hum get method ke alawa method use kar sakta 
+
+ha kar sakta hai but get standard tarika hai
+
+
+--Tutorial 14
+
+
+to upload a file we use multer npm package
+
+OS module => operating system module it used to find out about your computer like memory, ram etc.
+
+
+node js me har ek cheej event based hoti hai
+
+nodeJs me button kaise banoage => through api aur button hum sirf html and javascript me banate hai
+
+REPL (read-evaluate-print-loop) jab hum node likhte hai tab jo khulta hai ose repl kehta hai
+
+
+que.  kya hum get aur post me same route rakh sakte hai kya 
+
+ans. ha rakh sakta hai
+
+
+nodejs ki madad se hum sql se connect kar sakhte hai aur usme crud operations kar sakte hai
+
+hum node js me two database se bhi connection kar sakte hai
+
+
+jab hum mongodb se connect hote hai tab hame read ke liya toarray() ki jaroorat hoti hai but in mongoose
+
+.find() se ho jata hai
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
